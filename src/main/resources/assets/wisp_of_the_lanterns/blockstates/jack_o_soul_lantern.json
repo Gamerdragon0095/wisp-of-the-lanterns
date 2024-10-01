@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "wisp_of_the_lanterns:block/jack_o_soul_lantern",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "wisp_of_the_lanterns:block/jack_o_soul_lantern"
+    },
+    "facing=south": {
+      "model": "wisp_of_the_lanterns:block/jack_o_soul_lantern",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "wisp_of_the_lanterns:block/jack_o_soul_lantern",
+      "y": 270
+    }
+  }
+}
