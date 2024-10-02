@@ -30,6 +30,7 @@ public class ModCreativeModeTabs {
                     .title(Component.translatable("creativetab.wisp_of_the_lanterns.wisp_of_the_lanterns"))
                     .displayItems((ItemDisplayParameters, output) -> {
                         output.accept(ModBlocks.JACK_O_SOUL_LANTERN);
+                        output.accept(ModBlocks.HAUNTED_PUMPKIN);
                         //output.accept(ModBlocks.JADE_ORE);
 
                     }).build());

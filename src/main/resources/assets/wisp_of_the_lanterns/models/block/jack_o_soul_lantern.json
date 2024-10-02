@@ -2,7 +2,7 @@
   "parent": "minecraft:block/orientable",
   "textures": {
     "front": "wisp_of_the_lanterns:block/jack_o_soul_lantern",
-    "side": "minecraft:block/pumpkin_side",
-    "top": "minecraft:block/pumpkin_top"
+    "side": "wisp_of_the_lanterns:block/haunted_pumpkin_side",
+    "top": "wisp_of_the_lanterns:block/haunted_pumpkin_top"
   }
 }
