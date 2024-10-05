@@ -31,6 +31,7 @@ public class ModCreativeModeTabs {
                     .displayItems((ItemDisplayParameters, output) -> {
                         output.accept(ModBlocks.JACK_O_SOUL_LANTERN);
                         output.accept(ModBlocks.HAUNTED_PUMPKIN);
+                        output.accept(ModItems.TEMP_SPAWN_EGG);
                         //output.accept(ModBlocks.JADE_ORE);
 
                     }).build());

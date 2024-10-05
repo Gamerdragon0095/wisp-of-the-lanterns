@@ -1,6 +1,7 @@
 package net.gamerdragon525.wisp_of_the_lanterns;
 
 import net.gamerdragon525.wisp_of_the_lanterns.block.ModBlocks;
+import net.gamerdragon525.wisp_of_the_lanterns.entity.ModEntities;
 import net.gamerdragon525.wisp_of_the_lanterns.item.ModCreativeModeTabs;
 import net.gamerdragon525.wisp_of_the_lanterns.item.ModItems;
 import org.slf4j.Logger;
@@ -37,6 +38,7 @@ public class WispOfTheLanterns {
         ModCreativeModeTabs.register(modEventBus);
 
         ModItems.register(modEventBus);
+        ModEntities.REGISTRY.register(modEventBus);
         ModBlocks.register(modEventBus);
 
         // Register ourselves for server and other game events we are interested in.
