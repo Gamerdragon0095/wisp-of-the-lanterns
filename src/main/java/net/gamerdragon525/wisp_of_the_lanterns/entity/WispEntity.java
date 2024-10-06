@@ -1,8 +1,12 @@
 package net.gamerdragon525.wisp_of_the_lanterns.entity;
 
 
+import net.gamerdragon525.wisp_of_the_lanterns.block.ModBlocks;
+import net.gamerdragon525.wisp_of_the_lanterns.entity.goal.InfestPumpkinGoal;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
@@ -14,7 +18,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.ai.navigation.PathNavigation;
 import net.minecraft.world.entity.ai.navigation.FlyingPathNavigation;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.ai.control.FlyingMoveControl;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -22,7 +25,6 @@ import net.minecraft.world.entity.SpawnPlacementTypes;
 import net.minecraft.world.entity.Pose;
 import net.minecraft.world.entity.PathfinderMob;
 import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.entity.Entity;
@@ -38,12 +40,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.BlockPos;
 
-import net.gamerdragon525.wisp_of_the_lanterns.entity.ModEntities;
+import javax.annotation.Nullable;
 
-public class TempEntity extends PathfinderMob {
-    public static final EntityDataAccessor<Boolean> DATA_test = SynchedEntityData.defineId(TempEntity.class, EntityDataSerializers.BOOLEAN);
+public class WispEntity extends PathfinderMob {
+    public static final EntityDataAccessor<Boolean> DATA_test = SynchedEntityData.defineId(WispEntity.class, EntityDataSerializers.BOOLEAN);
 
-    public TempEntity(EntityType<TempEntity> type, Level world) {
+    public WispEntity(EntityType<WispEntity> type, Level world) {
         super(type, world);
         xpReward = 0;
         setNoAi(false);
@@ -76,13 +78,44 @@ public class TempEntity extends PathfinderMob {
         this.goalSelector.addGoal(1, new MoveToBlockGoal(this, 3, 25, 25) {
             @Override
             protected boolean isValidTarget(LevelReader level, BlockPos pos) {
-                    if ((level.getBlockState(pos)).getBlock() == Blocks.STONE) {
+                    if ((level.getBlockState(pos)).getBlock() == Blocks.PUMPKIN || (level.getBlockState(pos)).getBlock() == Blocks.CARVED_PUMPKIN) {
                         return true;
                     }
                     else {
                         return false;
                     }
                 //return false;
+            }
+            @Override
+            public void tick() {
+                super.tick();
+                Level level = this.mob.level();
+                BlockPos blockpos = this.mob.blockPosition();
+                BlockPos blockpos1 = this.getPosWithBlock(blockpos, level);
+
+                if (this.isReachedTarget() && blockpos1 != null) {
+                    InfestPumpkinGoal.execute(level(), blockpos1.getX(), blockpos1.getY(), blockpos1.getZ(), blockpos1, mob);
+
+                }
+            }
+
+            @Nullable
+            private BlockPos getPosWithBlock(BlockPos pos, BlockGetter level) {
+                if (level.getBlockState(pos).is(Blocks.PUMPKIN) || level.getBlockState(pos).is(Blocks.CARVED_PUMPKIN)) {
+                    return pos;
+                } else {
+                    BlockPos[] ablockpos = new BlockPos[]{
+                            pos.below(), pos.west(), pos.east(), pos.north(), pos.south(), pos.below().below()
+                    };
+
+                    for (BlockPos blockpos : ablockpos) {
+                        if (level.getBlockState(blockpos).is(Blocks.PUMPKIN) || level.getBlockState(blockpos).is(Blocks.CARVED_PUMPKIN)) {
+                            return blockpos;
+                        }
+                    }
+
+                    return null;
+                }
             }
         });
         //this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
@@ -180,7 +213,7 @@ public class TempEntity extends PathfinderMob {
     }
 
     public static void init(RegisterSpawnPlacementsEvent event) {
-        event.register(ModEntities.TEMP.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+        event.register(ModEntities.WISP.get(), SpawnPlacementTypes.ON_GROUND, Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 (entityType, world, reason, pos, random) -> (world.getDifficulty() != Difficulty.PEACEFUL && Monster.isDarkEnoughToSpawn(world, pos, random) && Mob.checkMobSpawnRules(entityType, world, reason, pos, random)),
                 RegisterSpawnPlacementsEvent.Operation.REPLACE);
     }

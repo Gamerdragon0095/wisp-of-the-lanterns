@@ -12,7 +12,7 @@ public class ModItems {
     public static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(WispOfTheLanterns.MODID);
 
-    public static final DeferredItem<Item> TEMP_SPAWN_EGG = ITEMS.register("temp_spawn_egg", () -> new DeferredSpawnEggItem(ModEntities.TEMP, -52225, -16777216, new Item.Properties()));
+    public static final DeferredItem<Item> TEMP_SPAWN_EGG = ITEMS.register("wisp_spawn_egg", () -> new DeferredSpawnEggItem(ModEntities.WISP, -6241587, -13921357, new Item.Properties()));
 
 
     /*public static final DeferredItem<Item> JADE = ITEMS.register("jade",

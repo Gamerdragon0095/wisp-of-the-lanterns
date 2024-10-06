@@ -1,0 +1,13 @@
+{
+  "type": "neoforge:add_spawns",
+  "biomes": [
+    "swamp",
+    "mangrove_swamp"
+  ],
+  "spawners": {
+    "type": "wisp_of_the_lanterns:wisp",
+    "weight": 20,
+    "minCount": 2,
+    "maxCount": 3
+  }
+}

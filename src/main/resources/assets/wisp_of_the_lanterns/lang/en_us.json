@@ -2,5 +2,9 @@
   "block.wisp_of_the_lanterns.jack_o_soul_lantern": "Jack-o'-Soul Lantern",
   "block.wisp_of_the_lanterns.haunted_pumpkin": "Haunted Pumpkin",
 
+  "item.wisp_of_the_lanterns.wisp_spawn_egg": "Wisp Spawn Egg",
+
+  "entity.wisp_of_the_lanterns.wisp": "Wisp",
+
   "creativetab.wisp_of_the_lanterns.wisp_of_the_lanterns": "Wisp Of The Lanterns"
 }

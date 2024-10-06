@@ -9,7 +9,7 @@ import net.neoforged.api.distmarker.Dist;
 public class ModEntityRenderers {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.TEMP.get(), TempRenderer::new);
+        event.registerEntityRenderer(ModEntities.WISP.get(), WispRenderer::new);
     }
 }
 

@@ -13,14 +13,12 @@ import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.core.registries.Registries;
 
-import net.gamerdragon525.wisp_of_the_lanterns.WispOfTheLanterns;
-
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public class ModEntities {
 
     public static final DeferredRegister<EntityType<?>> REGISTRY = DeferredRegister.create(Registries.ENTITY_TYPE, WispOfTheLanterns.MODID);
-    public static final DeferredHolder<EntityType<?>, EntityType<TempEntity>> TEMP = register("temp",
-            EntityType.Builder.<TempEntity>of(TempEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
+    public static final DeferredHolder<EntityType<?>, EntityType<WispEntity>> WISP = register("wisp",
+            EntityType.Builder.<WispEntity>of(WispEntity::new, MobCategory.MONSTER).setShouldReceiveVelocityUpdates(true).setTrackingRange(64).setUpdateInterval(3)
 
                     .sized(0.6f, 0.6f));
 
@@ -30,12 +28,12 @@ public class ModEntities {
 
     @SubscribeEvent
     public static void init(RegisterSpawnPlacementsEvent event) {
-        TempEntity.init(event);
+        WispEntity.init(event);
     }
 
     @SubscribeEvent
     public static void registerAttributes(EntityAttributeCreationEvent event) {
-        event.put(TEMP.get(), TempEntity.createAttributes().build());
+        event.put(WISP.get(), WispEntity.createAttributes().build());
     }
 
 }

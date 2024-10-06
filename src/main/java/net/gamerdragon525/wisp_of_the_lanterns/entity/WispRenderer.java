@@ -1,6 +1,5 @@
 package net.gamerdragon525.wisp_of_the_lanterns.entity;
 
-import net.gamerdragon525.wisp_of_the_lanterns.entity.TempEntity;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
 import net.minecraft.client.renderer.entity.layers.HumanoidArmorLayer;
@@ -19,15 +18,15 @@ import net.gamerdragon525.wisp_of_the_lanterns.model.ModelWisp;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.blaze3d.vertex.PoseStack;
 
-public class TempRenderer extends HumanoidMobRenderer<TempEntity, HumanoidModel<TempEntity>> {
-    public TempRenderer(EntityRendererProvider.Context context) {
+public class WispRenderer extends HumanoidMobRenderer<WispEntity, HumanoidModel<WispEntity>> {
+    public WispRenderer(EntityRendererProvider.Context context) {
         super(context, new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER)), 0.0f);
         this.addLayer(new HumanoidArmorLayer(this, new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER_INNER_ARMOR)), new HumanoidModel(context.bakeLayer(ModelLayers.PLAYER_OUTER_ARMOR)), context.getModelManager()));
-        this.addLayer(new RenderLayer<TempEntity, HumanoidModel<TempEntity>>(this) {
+        this.addLayer(new RenderLayer<WispEntity, HumanoidModel<WispEntity>>(this) {
             final ResourceLocation LAYER_TEXTURE = ResourceLocation.parse("wisp_of_the_lanterns:textures/entities/wisp.png");
 
             @Override
-            public void render(PoseStack poseStack, MultiBufferSource bufferSource, int light, TempEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
+            public void render(PoseStack poseStack, MultiBufferSource bufferSource, int light, WispEntity entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
                 VertexConsumer vertexConsumer = bufferSource.getBuffer(RenderType.entityTranslucentEmissive(LAYER_TEXTURE));
                 EntityModel model = new ModelWisp(Minecraft.getInstance().getEntityModels().bakeLayer(ModelWisp.LAYER_LOCATION));
                 this.getParentModel().copyPropertiesTo(model);
@@ -40,12 +39,12 @@ public class TempRenderer extends HumanoidMobRenderer<TempEntity, HumanoidModel<
     }
 
     @Override
-    protected void scale(TempEntity entity, PoseStack poseStack, float f) {
+    protected void scale(WispEntity entity, PoseStack poseStack, float f) {
         poseStack.scale(0.5f, 0.5f, 0.5f);
     }
 
     @Override
-    public ResourceLocation getTextureLocation(TempEntity entity) {
+    public ResourceLocation getTextureLocation(WispEntity entity) {
         return ResourceLocation.parse("wisp_of_the_lanterns:textures/entities/test_inviz.png");
     }
 }
