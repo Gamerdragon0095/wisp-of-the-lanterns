@@ -1,0 +1,6 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "wisp_of_the_lanterns:item/pumpkin_chunk"
+  }
+}

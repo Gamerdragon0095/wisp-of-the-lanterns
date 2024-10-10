@@ -12,7 +12,10 @@ public class ModItems {
     public static final DeferredRegister.Items ITEMS =
             DeferredRegister.createItems(WispOfTheLanterns.MODID);
 
-    public static final DeferredItem<Item> TEMP_SPAWN_EGG = ITEMS.register("wisp_spawn_egg", () -> new DeferredSpawnEggItem(ModEntities.WISP, -6241587, -13921357, new Item.Properties()));
+    public static final DeferredItem<Item> WISP_SPAWN_EGG = ITEMS.register("wisp_spawn_egg", () -> new DeferredSpawnEggItem(ModEntities.WISP, -6241587, -13921357, new Item.Properties()));
+    public static final DeferredItem<Item> PUMPKIN_MASK = ITEMS.register("pumpkin_mask", PumpkinMaskItem.Helmet::new);
+    public static final DeferredItem<Item> PUMPKIN_CHUNK = ITEMS.register("pumpkin_chunk", () -> new Item(new Item.Properties()));
+
 
 
     /*public static final DeferredItem<Item> JADE = ITEMS.register("jade",

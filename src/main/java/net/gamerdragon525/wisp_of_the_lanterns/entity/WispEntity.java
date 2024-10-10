@@ -5,6 +5,7 @@ import net.gamerdragon525.wisp_of_the_lanterns.block.ModBlocks;
 import net.gamerdragon525.wisp_of_the_lanterns.entity.goal.InfestPumpkinGoal;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.entity.ai.goal.*;
+import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
@@ -73,8 +74,8 @@ public class WispEntity extends PathfinderMob {
                 return this.isTimeToAttack() && this.mob.distanceToSqr(entity) < (this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth()) && this.mob.getSensing().hasLineOfSight(entity);
             }
         });*/
-        //this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1));
-        //this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
+        this.goalSelector.addGoal(2, new WaterAvoidingRandomFlyingGoal(this, 1));
+        this.targetSelector.addGoal(3, new HurtByTargetGoal(this));
         this.goalSelector.addGoal(1, new MoveToBlockGoal(this, 3, 25, 25) {
             @Override
             protected boolean isValidTarget(LevelReader level, BlockPos pos) {
@@ -118,8 +119,8 @@ public class WispEntity extends PathfinderMob {
                 }
             }
         });
-        //this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
-        //this.goalSelector.addGoal(5, new FloatGoal(this));
+        this.goalSelector.addGoal(4, new RandomLookAroundGoal(this));
+        this.goalSelector.addGoal(5, new FloatGoal(this));
     }
 
     @Override
