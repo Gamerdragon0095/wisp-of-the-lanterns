@@ -1,6 +1,7 @@
 package net.gamerdragon525.wisp_of_the_lanterns;
 
 import net.gamerdragon525.wisp_of_the_lanterns.block.ModBlocks;
+import net.gamerdragon525.wisp_of_the_lanterns.block.entity.ModBlockEntities;
 import net.gamerdragon525.wisp_of_the_lanterns.entity.ModEntities;
 import net.gamerdragon525.wisp_of_the_lanterns.item.ModCreativeModeTabs;
 import net.gamerdragon525.wisp_of_the_lanterns.item.ModItems;
@@ -40,6 +41,8 @@ public class WispOfTheLanterns {
         ModItems.register(modEventBus);
         ModEntities.REGISTRY.register(modEventBus);
         ModBlocks.register(modEventBus);
+        ModBlockEntities.REGISTRY.register(modEventBus);
+
 
         // Register ourselves for server and other game events we are interested in.
         // Note that this is necessary if and only if we want *this* class (ExampleMod) to respond directly to events.

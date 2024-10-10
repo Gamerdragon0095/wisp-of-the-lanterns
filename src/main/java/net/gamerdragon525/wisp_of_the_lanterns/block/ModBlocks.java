@@ -1,7 +1,5 @@
 package net.gamerdragon525.wisp_of_the_lanterns.block;
 
-import com.ibm.icu.text.RelativeDateTimeFormatter;
-import com.mojang.serialization.MapCodec;
 import net.gamerdragon525.wisp_of_the_lanterns.WispOfTheLanterns;
 import net.gamerdragon525.wisp_of_the_lanterns.item.ModItems;
 //import net.minecraft.util.valueproviders.UniformInt;
@@ -12,7 +10,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.RandomSource;
-import net.minecraft.util.datafix.fixes.ChunkPalettedStorageFix;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.LivingEntity;
@@ -22,20 +19,17 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 //import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.gameevent.GameEvent;
 import net.minecraft.world.level.material.PushReaction;
 import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 
 import java.util.function.Supplier;
 
@@ -43,7 +37,9 @@ public class ModBlocks {
     public static final DeferredRegister.Blocks BLOCKS =
             DeferredRegister.createBlocks(WispOfTheLanterns.MODID);
 
-    public static final DeferredBlock<Block>  JACK_O_SOUL_LANTERN = registerBlock("jack_o_soul_lantern",
+    public static final DeferredBlock<Block> JACK_O_SOUL_LANTERN = registerBlock("jack_o_soul_lantern", () -> new JackOSoulLanternBlock());
+    public static final DeferredBlock<Block> HAUNTED_PUMPKIN = registerBlock("haunted_pumpkin", () -> new HauntedPumpkinBlock());
+   /* public static final DeferredBlock<Block>  JACK_O_SOUL_LANTERN = registerBlock("jack_o_soul_lantern",
             () -> new HorizontalDirectionalBlock(BlockBehaviour.Properties.of()
                     .strength(1f)
                     .sound(SoundType.WOOD)
@@ -84,9 +80,9 @@ public class ModBlocks {
                     }
                 }
 
-            });
+            });*/
 
-    public static final DeferredBlock<Block>  HAUNTED_PUMPKIN = registerBlock("haunted_pumpkin",
+   /* public static final DeferredBlock<Block>  HAUNTED_PUMPKIN = registerBlock("haunted_pumpkin",
             () -> new Block(BlockBehaviour.Properties.of()
                     .strength(1f)
                     .sound(SoundType.WOOD)
@@ -145,9 +141,7 @@ public class ModBlocks {
                     }
                 }
 
-            });
-
-
+            });*/
 
     private static <T extends Block> DeferredBlock<T> registerBlock(String name, Supplier<T> block) {
         DeferredBlock<T> toReturn = BLOCKS.register(name, block);
