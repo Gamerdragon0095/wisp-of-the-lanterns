@@ -1,10 +1,12 @@
 {
   "block.wisp_of_the_lanterns.jack_o_soul_lantern": "Jack-o'-Soul Lantern",
   "block.wisp_of_the_lanterns.haunted_pumpkin": "Haunted Pumpkin",
+  "block.wisp_of_the_lanterns.dried_pumpkin_wood_planks": "Dried Pumpkin Wood Planks",
 
   "item.wisp_of_the_lanterns.wisp_spawn_egg": "Wisp Spawn Egg",
   "item.wisp_of_the_lanterns.pumpkin_mask": "Pumpkin Mask",
   "item.wisp_of_the_lanterns.pumpkin_chunk": "Pumpkin Chunk",
+  "item.wisp_of_the_lanterns.dried_pumpkin_chunk": "Pumpkin Chunk",
 
   "entity.wisp_of_the_lanterns.wisp": "Wisp",
 

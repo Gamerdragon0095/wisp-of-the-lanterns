@@ -34,6 +34,8 @@ public class ModCreativeModeTabs {
                         output.accept(ModItems.WISP_SPAWN_EGG);
                         output.accept(ModItems.PUMPKIN_MASK);
                         output.accept(ModItems.PUMPKIN_CHUNK);
+                        output.accept(ModItems.DRIED_PUMPKIN_CHUNK);
+                        output.accept(ModBlocks.DRIED_PUMPKIN_WOOD_PLANKS);
 
                     }).build());
 
