@@ -87,14 +87,14 @@ public class JackOSoulLanternBlock extends Block implements EntityBlock {
 	public boolean onDestroyedByPlayer(BlockState blockstate, Level world, BlockPos pos, Player entity, boolean willHarvest, FluidState fluid) {
 		boolean retval = super.onDestroyedByPlayer(blockstate, world, pos, entity, willHarvest, fluid);
 
-		DispenseWispAction.execute(world, pos.getX(), pos.getY(), pos.getZ(), entity, blockstate);
+		//DispenseWispAction.execute(world, pos.getX(), pos.getY(), pos.getZ(), entity, blockstate);
 		return retval;
 	}
 
 	@Override
 	public void wasExploded(Level world, BlockPos pos, Explosion e) {
 		super.wasExploded(world, pos, e);
-		DispenseWispAction.execute(world, pos.getX(), pos.getY(), pos.getZ(), null, null);
+		//DispenseWispAction.execute(world, pos.getX(), pos.getY(), pos.getZ(), null, null);
 	}
 
 

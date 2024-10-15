@@ -24,7 +24,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 public class ModelPumpkinMask<T extends Entity> extends EntityModel<T> {
 	// This layer location should be baked with EntityRendererProvider.Context in
 	// the entity renderer and passed into this model's constructor
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("test_environment_1_21_1_3", "modelpumpkin_mask"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("wisp_of_the_lanterns", "modelpumpkin_mask"), "main");
 	public final ModelPart mask;
 
 	public ModelPumpkinMask(ModelPart root) {
