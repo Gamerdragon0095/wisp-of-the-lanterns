@@ -3,30 +3,13 @@ package net.gamerdragon525.wisp_of_the_lanterns.block;
 import net.gamerdragon525.wisp_of_the_lanterns.WispOfTheLanterns;
 import net.gamerdragon525.wisp_of_the_lanterns.item.ModItems;
 //import net.minecraft.util.valueproviders.UniformInt;
-import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.stats.Stats;
-import net.minecraft.util.RandomSource;
-import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.item.ItemEntity;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 //import net.minecraft.world.level.block.DropExperienceBlock;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraft.world.level.material.PushReaction;
-import net.minecraft.world.phys.BlockHitResult;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredBlock;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -39,6 +22,11 @@ public class ModBlocks {
 
     public static final DeferredBlock<Block> JACK_O_SOUL_LANTERN = registerBlock("jack_o_soul_lantern", () -> new JackOSoulLanternBlock());
     public static final DeferredBlock<Block> HAUNTED_PUMPKIN = registerBlock("haunted_pumpkin", () -> new HauntedPumpkinBlock());
+    public static final DeferredBlock<Block> DRIED_PUMPKIN_WOOD_PLANKS = registerBlock("dried_pumpkin_wood_planks",
+            () -> new Block(BlockBehaviour.Properties.of()
+                    .sound(SoundType.BAMBOO)
+                    .strength(1f)
+            ));
    /* public static final DeferredBlock<Block>  JACK_O_SOUL_LANTERN = registerBlock("jack_o_soul_lantern",
             () -> new HorizontalDirectionalBlock(BlockBehaviour.Properties.of()
                     .strength(1f)

@@ -1,5 +1,6 @@
 package net.gamerdragon525.wisp_of_the_lanterns.entity.goal;
 
+import net.gamerdragon525.wisp_of_the_lanterns.actions.SaveWispDataAction;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.state.properties.BlockStateProperties;
@@ -25,10 +26,7 @@ public class InfestPumpkinGoal {
         }
         else if ((world.getBlockState(pos)).getBlock() == Blocks.CARVED_PUMPKIN) {
             world.setBlock(BlockPos.containing(x, y, z), ModBlocks.JACK_O_SOUL_LANTERN.value().defaultBlockState().setValue(HorizontalDirectionalBlock.FACING, world.getBlockState(BlockPos.containing(x, y, z)).getValue(HorizontalDirectionalBlock.FACING)), 11);
-            if (mob == null)
-                return;
-            if (!mob.level().isClientSide())
-                mob.discard();
+            SaveWispDataAction.execute(world, x, y, z, mob);
         }
     }
 }

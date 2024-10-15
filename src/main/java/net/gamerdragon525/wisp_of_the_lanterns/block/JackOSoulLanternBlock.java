@@ -1,8 +1,11 @@
 
 package net.gamerdragon525.wisp_of_the_lanterns.block;
 
+import net.gamerdragon525.wisp_of_the_lanterns.actions.DispenseWispAction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,6 +26,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.core.BlockPos;
 
 import net.gamerdragon525.wisp_of_the_lanterns.block.entity.JackOSoulLanternBlockEntity;
+import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.PushReaction;
 
 public class JackOSoulLanternBlock extends Block implements EntityBlock {
@@ -78,6 +82,21 @@ public class JackOSoulLanternBlock extends Block implements EntityBlock {
 			level.addParticle(ParticleTypes.SOUL_FIRE_FLAME, d0, d1, d2, d3, d4, d5);
 		}
 	}
+
+	@Override
+	public boolean onDestroyedByPlayer(BlockState blockstate, Level world, BlockPos pos, Player entity, boolean willHarvest, FluidState fluid) {
+		boolean retval = super.onDestroyedByPlayer(blockstate, world, pos, entity, willHarvest, fluid);
+
+		DispenseWispAction.execute(world, pos.getX(), pos.getY(), pos.getZ(), entity, blockstate);
+		return retval;
+	}
+
+	@Override
+	public void wasExploded(Level world, BlockPos pos, Explosion e) {
+		super.wasExploded(world, pos, e);
+		DispenseWispAction.execute(world, pos.getX(), pos.getY(), pos.getZ(), null, null);
+	}
+
 
 	@Override
 	public MenuProvider getMenuProvider(BlockState state, Level worldIn, BlockPos pos) {
