@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smelting",
+  "category": "food",
+  "cookingtime": 200,
+  "experience": 0.1,
+  "ingredient": {
+    "item": "wisp_of_the_lanterns:pumpkin_chunk"
+  },
+  "result": {
+    "id": "wisp_of_the_lanterns:dried_pumpkin_chunk"
+  }
+}
