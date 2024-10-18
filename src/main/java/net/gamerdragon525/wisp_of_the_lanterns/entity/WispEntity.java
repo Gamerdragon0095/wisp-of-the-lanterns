@@ -1,8 +1,6 @@
 package net.gamerdragon525.wisp_of_the_lanterns.entity;
 
 
-import net.gamerdragon525.wisp_of_the_lanterns.actions.TestClass;
-import net.gamerdragon525.wisp_of_the_lanterns.block.ModBlocks;
 import net.gamerdragon525.wisp_of_the_lanterns.entity.goal.InfestPumpkinGoal;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.InteractionHand;
@@ -12,7 +10,6 @@ import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
-import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
 import net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent;
@@ -72,7 +69,6 @@ public class WispEntity extends PathfinderMob {
         Entity entity = this;
         Level world = this.level();
 
-        //TestClass.execute(entity, sourceentity);
         return retval;
     }
 

@@ -1,12 +1,13 @@
 
 package net.gamerdragon525.wisp_of_the_lanterns.block;
 
-import net.gamerdragon525.wisp_of_the_lanterns.actions.DispenseWispAction;
+import net.gamerdragon525.wisp_of_the_lanterns.actions.PlaceHauntedPumpkinAction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Explosion;
-import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.entity.BlockEntity;
@@ -141,4 +142,11 @@ public class JackOSoulLanternBlock extends Block implements EntityBlock {
 		else
 			return 0;
 	}
+
+	@Override
+	public void setPlacedBy(Level world, BlockPos pos, BlockState blockstate, LivingEntity entity, ItemStack itemstack) {
+		super.setPlacedBy(world, pos, blockstate, entity, itemstack);
+		PlaceHauntedPumpkinAction.execute(world, pos.getX(), pos.getY(), pos.getZ(), itemstack, entity);
+	}
 }
+
