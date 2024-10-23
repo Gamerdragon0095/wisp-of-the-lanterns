@@ -58,5 +58,7 @@ public class ModelPumpkinMask<T extends Entity> extends EntityModel<T> {
 	}
 
 	public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+		this.mask.yRot = netHeadYaw / (180F / (float) Math.PI);
+		this.mask.xRot = headPitch / (180F / (float) Math.PI);
 	}
 }
