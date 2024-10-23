@@ -10,6 +10,7 @@ public class ModEntityRenderers {
     @SubscribeEvent
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.WISP.get(), WispRenderer::new);
+        event.registerEntityRenderer(ModEntities.SCARE_GOLLUM.get(), ScareGollumRenderer::new);
     }
 }
 
