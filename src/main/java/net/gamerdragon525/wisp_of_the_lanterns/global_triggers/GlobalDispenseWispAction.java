@@ -162,7 +162,6 @@ public class GlobalDispenseWispAction {
                             Block.dropResources(blockstate, (Level) world, BlockPos.containing(x, y, z), world.getBlockEntity(BlockPos.containing(x, y, z)), entity, Objects.requireNonNull(entity.getWeaponItem()));
                         }
                     else {
-                            _player.displayClientMessage((Component.literal("test1")), false);
                             BlockEntity blockEntity = world.getBlockEntity(BlockPos.containing(x, y, z));
                             if (!world.isClientSide()
                                     && !((Player) entity).isCreative()
@@ -178,7 +177,6 @@ public class GlobalDispenseWispAction {
                                 }.getValue(world, BlockPos.containing(x, y, z), "hasEntityData"));
                                 //boolean flag = !blockEntity_.isEmpty();
                                 if (world instanceof ServerLevel _level){
-                                    _player.displayClientMessage((Component.literal("test2")), false);
                                     if (blockEntity_ != null) {
                                         ItemStack itemstack = new ItemStack(blockstate.getBlock().asItem());
                                         itemstack.applyComponents(blockEntity_.collectComponents());
@@ -186,7 +184,6 @@ public class GlobalDispenseWispAction {
                                         ItemEntity itementity = new ItemEntity(_level, x, y, z, itemstack);
                                         itementity.setDefaultPickUpDelay();
                                         _level.addFreshEntity(itementity);
-                                        _player.displayClientMessage((Component.literal("test3")), false);
                                     }
                                 }
                             }
