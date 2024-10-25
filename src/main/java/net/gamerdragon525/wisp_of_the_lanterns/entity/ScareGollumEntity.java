@@ -1,6 +1,14 @@
 package net.gamerdragon525.wisp_of_the_lanterns.entity;
 
 
+import net.gamerdragon525.wisp_of_the_lanterns.actions.GetPumpkinMaskDesignFromEntityAction;
+import net.gamerdragon525.wisp_of_the_lanterns.actions.SetScareGollumTextureAction;
+import net.gamerdragon525.wisp_of_the_lanterns.actions.TestAction;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import software.bernie.geckolib.util.GeckoLibUtil;
 import software.bernie.geckolib.animation.RawAnimation;
 import software.bernie.geckolib.animation.PlayState;
@@ -21,11 +29,6 @@ import net.minecraft.world.entity.ai.goal.FloatGoal;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.Pose;
-import net.minecraft.world.entity.PathfinderMob;
-import net.minecraft.world.entity.Mob;
-import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.EntityDimensions;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.resources.ResourceLocation;
@@ -45,6 +48,14 @@ public class ScareGollumEntity extends PathfinderMob implements GeoEntity {
     private long lastSwing;
     public String animationprocedure = "empty";
 
+    public int maskDesign() {
+        if (self() != null)
+        {
+            return (int) GetPumpkinMaskDesignFromEntityAction.execute(self());
+        }
+        return 0;
+    }
+
     public ScareGollumEntity(EntityType<ScareGollumEntity> type, Level world) {
         super(type, world);
         xpReward = 0;
@@ -57,7 +68,7 @@ public class ScareGollumEntity extends PathfinderMob implements GeoEntity {
         super.defineSynchedData(builder);
         builder.define(SHOOT, false);
         builder.define(ANIMATION, "undefined");
-        builder.define(TEXTURE, "scare_gollum");
+        builder.define(TEXTURE, "scare_gollum0");
     }
 
     public void setTexture(String texture) {
@@ -67,6 +78,24 @@ public class ScareGollumEntity extends PathfinderMob implements GeoEntity {
     public String getTexture() {
         return this.entityData.get(TEXTURE);
     }
+
+    @Override
+    public InteractionResult mobInteract(Player sourceentity, InteractionHand hand) {
+        ItemStack itemstack = sourceentity.getItemInHand(hand);
+        InteractionResult retval = InteractionResult.sidedSuccess(this.level().isClientSide());
+
+        super.mobInteract(sourceentity, hand);
+
+        double x = this.getX();
+        double y = this.getY();
+        double z = this.getZ();
+        Entity entity = this;
+        Level world = this.level();
+
+        TestAction.execute(entity, itemstack, sourceentity);
+        return retval;
+    }
+
 
     @Override
     protected void registerGoals() {
@@ -115,6 +144,7 @@ public class ScareGollumEntity extends PathfinderMob implements GeoEntity {
     public void baseTick() {
         super.baseTick();
         this.refreshDimensions();
+        SetScareGollumTextureAction.execute(this, maskDesign());
     }
 
     @Override

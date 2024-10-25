@@ -11,7 +11,12 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.gamerdragon525.wisp_of_the_lanterns.entity.ScareGollumEntity;
 
+
 public class ScareGollumModel extends GeoModel<ScareGollumEntity> {
+    public  GeoBone helmetBone(ScareGollumEntity animatable) {
+        return getAnimationProcessor().getBone("head");
+    }
+
     @Override
     public ResourceLocation getAnimationResource(ScareGollumEntity entity) {
         return ResourceLocation.parse("wisp_of_the_lanterns:animations/scare_gollum.animation.json");
