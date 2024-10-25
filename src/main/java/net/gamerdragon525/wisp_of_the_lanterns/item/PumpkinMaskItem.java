@@ -1,6 +1,12 @@
 package net.gamerdragon525.wisp_of_the_lanterns.item;
 
 import net.gamerdragon525.wisp_of_the_lanterns.model.ModelPumpkinMask;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.util.Mth;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
@@ -37,6 +43,21 @@ import java.util.Collections;
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
 public abstract class PumpkinMaskItem extends ArmorItem {
     public static Holder<ArmorMaterial> ARMOR_MATERIAL = null;
+
+    public int getDesign(ItemStack stack){
+        return (int) stack.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("design");
+    }
+
+    @Override
+    public void onCraftedBy(ItemStack itemstack, Level world, Player entity) {
+        super.onCraftedBy(itemstack, world, entity);
+        {
+            final String _tagName = "design";
+            final double _tagValue = (Mth.nextInt(RandomSource.create(), 1, 3));
+            CustomData.update(DataComponents.CUSTOM_DATA, itemstack, tag -> tag.putDouble(_tagName, _tagValue));
+        }
+    }
+
 
     @SubscribeEvent
     public static void registerArmorMaterial(RegisterEvent event) {
@@ -82,7 +103,7 @@ public abstract class PumpkinMaskItem extends ArmorItem {
 
         @Override
         public ResourceLocation getArmorTexture(ItemStack stack, Entity entity, EquipmentSlot slot, ArmorMaterial.Layer layer, boolean innerModel) {
-            return ResourceLocation.parse("wisp_of_the_lanterns:textures/armor/pumpkin_mask0.png");
+            return ResourceLocation.parse("wisp_of_the_lanterns:textures/armor/pumpkin_mask" + getDesign(stack) + ".png");
         }
 
 
