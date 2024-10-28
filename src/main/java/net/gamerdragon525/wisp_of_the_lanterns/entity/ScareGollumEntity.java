@@ -2,11 +2,14 @@ package net.gamerdragon525.wisp_of_the_lanterns.entity;
 
 
 import net.gamerdragon525.wisp_of_the_lanterns.actions.GetPumpkinMaskDesignFromEntityAction;
+import net.gamerdragon525.wisp_of_the_lanterns.actions.IsEntityInScareListForGivenMaskIDAction;
 import net.gamerdragon525.wisp_of_the_lanterns.actions.SetScareGollumTextureAction;
 import net.gamerdragon525.wisp_of_the_lanterns.actions.TestAction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.*;
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import software.bernie.geckolib.util.GeckoLibUtil;
@@ -101,9 +104,34 @@ public class ScareGollumEntity extends PathfinderMob implements GeoEntity {
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(1, new MeleeAttackGoal(this, 1.2, false) {
+
             @Override
             protected boolean canPerformAttack(LivingEntity entity) {
                 return this.isTimeToAttack() && this.mob.distanceToSqr(entity) < (this.mob.getBbWidth() * this.mob.getBbWidth() + entity.getBbWidth()) && this.mob.getSensing().hasLineOfSight(entity);
+            }
+        });
+
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal(this, LivingEntity.class, true, false) {
+            @Override
+            public boolean canUse() {
+                double x = ScareGollumEntity.this.getX();
+                double y = ScareGollumEntity.this.getY();
+                double z = ScareGollumEntity.this.getZ();
+                LivingEntity entity = ScareGollumEntity.this;
+                LivingEntity target = this.target;
+                Level world = ScareGollumEntity.this.level();
+                return super.canUse() && IsEntityInScareListForGivenMaskIDAction.execute(entity, target);
+            }
+
+            @Override
+            public boolean canContinueToUse() {
+                double x = ScareGollumEntity.this.getX();
+                double y = ScareGollumEntity.this.getY();
+                double z = ScareGollumEntity.this.getZ();
+                LivingEntity entity = ScareGollumEntity.this;
+                LivingEntity target = this.target;
+                Level world = ScareGollumEntity.this.level();
+                return super.canContinueToUse() && IsEntityInScareListForGivenMaskIDAction.execute(entity, target);
             }
         });
         this.goalSelector.addGoal(2, new RandomStrollGoal(this, 1));
@@ -166,7 +194,7 @@ public class ScareGollumEntity extends PathfinderMob implements GeoEntity {
         builder = builder.add(Attributes.MOVEMENT_SPEED, 0.3);
         builder = builder.add(Attributes.MAX_HEALTH, 10);
         builder = builder.add(Attributes.ARMOR, 0);
-        builder = builder.add(Attributes.ATTACK_DAMAGE, 3);
+        builder = builder.add(Attributes.ATTACK_DAMAGE, 0);
         builder = builder.add(Attributes.FOLLOW_RANGE, 16);
         builder = builder.add(Attributes.STEP_HEIGHT, 0.6);
         return builder;
