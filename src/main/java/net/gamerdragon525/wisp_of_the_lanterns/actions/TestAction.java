@@ -3,6 +3,7 @@ package net.gamerdragon525.wisp_of_the_lanterns.actions;
 import net.gamerdragon525.wisp_of_the_lanterns.entity.ModEntities;
 import net.gamerdragon525.wisp_of_the_lanterns.entity.ScareGollumEntity;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -25,7 +26,7 @@ public class TestAction {
             livingEntity = _entity;
         }
         helmet = (entity instanceof LivingEntity _entGetArmor ? _entGetArmor.getItemBySlot(EquipmentSlot.HEAD) : ItemStack.EMPTY);
-        if (helmet.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("design") != 3) {
+        if (helmet.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("design") != 11) {
             {
                 final String _tagName = "design";
                 final double _tagValue = (helmet.getOrDefault(DataComponents.CUSTOM_DATA, CustomData.EMPTY).copyTag().getDouble("design") + 1);
@@ -38,7 +39,8 @@ public class TestAction {
             CustomData.update(DataComponents.CUSTOM_DATA, helmet, tag -> tag.putDouble(_tagName, _tagValue));
         }
         livingEntity.setItemSlot(EquipmentSlot.HEAD, helmet);
-        //sourceEntity.displayClientMessage((Component.literal("" + design)), false);
+        sourceEntity.displayClientMessage((Component.literal((BuiltInRegistries.ENTITY_TYPE.getKey(entity.getType()).toString()))), false);
+        sourceEntity.displayClientMessage((Component.literal("" + design)), false);
     }
        /* if (entity == null || sourceEntity == null)
             return;
