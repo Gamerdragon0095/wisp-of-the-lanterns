@@ -1,5 +1,6 @@
 package net.gamerdragon525.wisp_of_the_lanterns.global_triggers;
 
+import net.gamerdragon525.wisp_of_the_lanterns.block.entity.HauntedPumpkinBlockEntity;
 import net.gamerdragon525.wisp_of_the_lanterns.block.entity.JackOSoulLanternBlockEntity;
 import net.gamerdragon525.wisp_of_the_lanterns.block.entity.ModBlockEntities;
 import net.gamerdragon525.wisp_of_the_lanterns.entity.ModEntities;
@@ -67,7 +68,7 @@ public class GlobalDispenseWispAction {
         //Cancels the block break event so the code can properly read the block data
         if (entity == null)
             return;
-        if (blockstate.getBlock() == ModBlocks.JACK_O_SOUL_LANTERN.get()) {
+        if ((blockstate.getBlock() == ModBlocks.JACK_O_SOUL_LANTERN.get()) || (blockstate.getBlock() == ModBlocks.HAUNTED_PUMPKIN.get())) {
             if (event instanceof ICancellableEvent _cancellable) {
                 _cancellable.setCanceled(true);
             }
@@ -175,7 +176,28 @@ public class GlobalDispenseWispAction {
                                         return false;
                                     }
                                 }.getValue(world, BlockPos.containing(x, y, z), "hasEntityData"));
-                                //boolean flag = !blockEntity_.isEmpty();
+                                if (world instanceof ServerLevel _level){
+                                    if (blockEntity_ != null) {
+                                        ItemStack itemstack = new ItemStack(blockstate.getBlock().asItem());
+                                        itemstack.applyComponents(blockEntity_.collectComponents());
+                                        itemstack.set(DataComponents.CUSTOM_DATA, CustomData.of(blockEntity_.getPersistentData().copy()));
+                                        ItemEntity itementity = new ItemEntity(_level, x, y, z, itemstack);
+                                        itementity.setDefaultPickUpDelay();
+                                        _level.addFreshEntity(itementity);
+                                    }
+                                }
+                            } else if (!world.isClientSide()
+                                    && !((Player) entity).isCreative()
+                                    && world.getLevelData().getGameRules().getBoolean(GameRules.RULE_DOBLOCKDROPS)
+                                    && blockEntity instanceof HauntedPumpkinBlockEntity blockEntity_) {
+                                boolean i = (new Object() {
+                                    public boolean getValue(LevelAccessor world, BlockPos pos, String tag) {
+                                        BlockEntity blockEntity = world.getBlockEntity(pos);
+                                        if (blockEntity != null)
+                                            return blockEntity.getPersistentData().getBoolean(tag);
+                                        return false;
+                                    }
+                                }.getValue(world, BlockPos.containing(x, y, z), "hasEntityData"));
                                 if (world instanceof ServerLevel _level){
                                     if (blockEntity_ != null) {
                                         ItemStack itemstack = new ItemStack(blockstate.getBlock().asItem());
@@ -189,11 +211,11 @@ public class GlobalDispenseWispAction {
                             }
                         }
                     }
-                    world.levelEvent(2001, BlockPos.containing(x, y, z), Block.getId(ModBlocks.JACK_O_SOUL_LANTERN.get().defaultBlockState()));
+                    world.levelEvent(2001, BlockPos.containing(x, y, z), Block.getId(blockstate.getBlock().defaultBlockState()));
                     world.setBlock(BlockPos.containing(x, y, z), Blocks.AIR.defaultBlockState(), 3);
                 }
                 else {
-                    world.levelEvent(2001, BlockPos.containing(x, y, z), Block.getId(ModBlocks.JACK_O_SOUL_LANTERN.get().defaultBlockState()));
+                    world.levelEvent(2001, BlockPos.containing(x, y, z), Block.getId(blockstate.getBlock().defaultBlockState()));
                     world.setBlock(BlockPos.containing(x, y, z), Blocks.AIR.defaultBlockState(), 3);
                 }
             } else {
@@ -220,7 +242,7 @@ public class GlobalDispenseWispAction {
                             entityToSpawn.setYRot(world.getRandom().nextFloat() * 360F);
                         }
                     }
-                    world.levelEvent(2001, BlockPos.containing(x, y, z), Block.getId(ModBlocks.JACK_O_SOUL_LANTERN.get().defaultBlockState()));
+                    world.levelEvent(2001, BlockPos.containing(x, y, z), Block.getId(blockstate.getBlock().defaultBlockState()));
                     world.setBlock(BlockPos.containing(x, y, z), Blocks.AIR.defaultBlockState(), 3);
                 } else {
                     if (world instanceof ServerLevel _level) {
@@ -231,7 +253,7 @@ public class GlobalDispenseWispAction {
                     }
                     Block.dropResources(blockstate, (Level) world, BlockPos.containing(x, y, z));
                     world.setBlock(BlockPos.containing(x, y, z), Blocks.AIR.defaultBlockState(), 3);
-                    world.levelEvent(2001, BlockPos.containing(x, y, z), Block.getId(ModBlocks.JACK_O_SOUL_LANTERN.get().defaultBlockState()));
+                    world.levelEvent(2001, BlockPos.containing(x, y, z), Block.getId(blockstate.getBlock().defaultBlockState()));
                 }
             }
         }
