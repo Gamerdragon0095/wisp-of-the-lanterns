@@ -1,11 +1,14 @@
 package net.gamerdragon525.wisp_of_the_lanterns.item;
 
+import net.gamerdragon525.wisp_of_the_lanterns.actions.SpawnScareGollumAction;
 import net.gamerdragon525.wisp_of_the_lanterns.model.ModelPumpkinMask;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.Mth;
 import net.minecraft.util.RandomSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.component.CustomData;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.registries.RegisterEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
@@ -53,11 +56,17 @@ public abstract class PumpkinMaskItem extends ArmorItem {
         super.onCraftedBy(itemstack, world, entity);
         {
             final String _tagName = "design";
-            final double _tagValue = (Mth.nextInt(RandomSource.create(), 1, 3));
+            final double _tagValue = (Mth.nextInt(RandomSource.create(), 1, 11));
             CustomData.update(DataComponents.CUSTOM_DATA, itemstack, tag -> tag.putDouble(_tagName, _tagValue));
         }
     }
 
+    @Override
+    public InteractionResult useOn(UseOnContext context) {
+        super.useOn(context);
+        SpawnScareGollumAction.execute(context.getLevel(), context.getClickedPos().getX(), context.getClickedPos().getY(), context.getClickedPos().getZ(), context.getClickedFace(), context.getPlayer());
+        return InteractionResult.SUCCESS;
+    }
 
     @SubscribeEvent
     public static void registerArmorMaterial(RegisterEvent event) {
