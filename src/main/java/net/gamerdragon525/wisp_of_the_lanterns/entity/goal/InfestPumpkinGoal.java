@@ -18,10 +18,7 @@ public class InfestPumpkinGoal {
 
         if ((world.getBlockState(pos)).getBlock() == Blocks.PUMPKIN) {
             world.setBlock(BlockPos.containing(x, y, z), ModBlocks.HAUNTED_PUMPKIN.value().defaultBlockState(), 3);
-            if (mob == null)
-                return;
-            if (!mob.level().isClientSide())
-                mob.discard();
+            SaveWispDataAction.execute(world, x, y, z, mob);
 
         }
         else if ((world.getBlockState(pos)).getBlock() == Blocks.CARVED_PUMPKIN) {
