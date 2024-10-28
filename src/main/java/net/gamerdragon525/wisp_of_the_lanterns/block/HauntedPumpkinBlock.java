@@ -1,6 +1,7 @@
 
 package net.gamerdragon525.wisp_of_the_lanterns.block;
 
+import net.gamerdragon525.wisp_of_the_lanterns.actions.PlaceHauntedPumpkinAction;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.stats.Stats;
@@ -140,5 +141,11 @@ public class HauntedPumpkinBlock extends Block implements EntityBlock {
 			return AbstractContainerMenu.getRedstoneSignalFromContainer(be);
 		else
 			return 0;
+	}
+
+	@Override
+	public void setPlacedBy(Level world, BlockPos pos, BlockState blockstate, LivingEntity entity, ItemStack itemstack) {
+		super.setPlacedBy(world, pos, blockstate, entity, itemstack);
+		PlaceHauntedPumpkinAction.execute(world, pos.getX(), pos.getY(), pos.getZ(), itemstack, entity);
 	}
 }
